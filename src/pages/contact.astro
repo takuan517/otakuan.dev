@@ -1,0 +1,7 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { ja, site } from '../data/site';
+---
+<Layout title="Contact"><PageIntro label="Contact" title={ja.contact.title} description={ja.contact.intro} /><div class="shell contact-layout"><div><section><h2>{ja.contact.examplesTitle}</h2><ul class="plain-list">{ja.contact.examples.map((item) => <li>{item}</li>)}</ul></section><section class="elsewhere"><h2>{ja.contact.profiles}</h2>{site.profiles.length ? <ul class="plain-list">{site.profiles.map((profile) => <li><a href={profile.url}>{profile.label}<span aria-hidden="true"> ↗</span></a></li>)}</ul> : <p>{ja.contact.profilesPending}</p>}</section></div><section><h2>{ja.contact.formTitle}</h2><ContactForm /></section></div></Layout>

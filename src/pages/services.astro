@@ -1,0 +1,8 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import ServiceList from '../components/ServiceList.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { ja } from '../data/site';
+---
+<Layout title="Services"><PageIntro label="Services" title={ja.services.title} description={ja.services.intro} /><section class="section shell"><h2 class="sr-only">サービス内容</h2><ServiceList detailed /></section><ContactCTA /></Layout>

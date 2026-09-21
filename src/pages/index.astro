@@ -1,0 +1,14 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ServiceList from '../components/ServiceList.astro';
+import WorkList from '../components/WorkList.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { ja } from '../data/site';
+import { getWorks } from '../data/works';
+const works = (await getWorks()).filter(({ data }) => data.featured).slice(0, 4);
+---
+<Layout><Hero />
+<section class="section shell" aria-labelledby="services-title"><h2 id="services-title">{ja.home.services}</h2><ServiceList /><a class="text-link section-link" href="/services/">{ja.home.allServices}</a></section>
+<section class="section shell" aria-labelledby="works-title"><h2 id="works-title">{ja.home.works}</h2>{works.some(({ data }) => data.sample) && <p class="sample-note">{ja.works.sampleNotice}</p>}<WorkList works={works} /><a class="text-link section-link" href="/works/">{ja.home.allWorks}</a></section>
+<section class="section shell" aria-labelledby="about-title"><div class="reading"><h2 id="about-title">{ja.home.about}</h2>{ja.about.paragraphs.map((p) => <p>{p}</p>)}<a class="text-link section-link" href="/about/">{ja.home.moreAbout}</a></div></section><ContactCTA /></Layout>

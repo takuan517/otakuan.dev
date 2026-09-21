@@ -1,0 +1,16 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+import { getWorks } from '../../data/works';
+import { ja } from '../../data/site';
+export async function getStaticPaths() { return (await getWorks()).map((work) => ({ params: { id: work.id }, props: { work } })); }
+interface Props { work: CollectionEntry<'works'> }
+const { work } = Astro.props;
+const { data } = work;
+const { Content } = await render(work);
+---
+<Layout title={data.title} description={data.description} noindex={data.sample}>
+<article class="shell work-detail"><a class="text-link" href="/works/">{ja.works.back}</a><div class="page-intro"><p class="eyebrow">{data.industry}</p><h1>{data.title}</h1><p class="page-description">{data.description}</p></div>{data.sample && <p class="notice">{ja.works.sampleNotice}</p>}
+<dl class="work-facts"><div><dt>{ja.works.client}</dt><dd>{data.client ?? data.industry}</dd></div><div><dt>{ja.works.role}</dt><dd>{data.role.join(' / ')}</dd></div><div><dt>{ja.works.technology}</dt><dd>{data.technologies.join(' / ')}</dd></div><div><dt>{ja.works.year}</dt><dd>{data.period ?? data.year ?? ja.works.pending}</dd></div></dl>
+<div class="prose"><Content /></div>{data.url && <a class="text-link" href={data.url}>{ja.works.external}<span aria-hidden="true">↗</span></a>}</article><ContactCTA /></Layout>

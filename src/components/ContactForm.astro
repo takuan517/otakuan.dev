@@ -1,0 +1,20 @@
+---
+import { ja, site } from '../data/site';
+interface Props { endpoint?: string }
+const { endpoint = site.contactEndpoint } = Astro.props;
+if (endpoint && !endpoint.startsWith('https://')) throw new Error('Contact endpoint must use HTTPS.');
+const enabled = Boolean(endpoint);
+const t = ja.contact;
+---
+<form action={enabled ? endpoint : undefined} method="post" aria-describedby={!enabled ? 'form-status' : undefined}>
+  {!enabled && <p class="notice" id="form-status">{t.unavailable}</p>}
+  <fieldset disabled={!enabled}>
+    <legend class="sr-only">{t.formTitle}</legend>
+    <div class="form-field"><label for="name">{t.labels.name}<span>{t.required}</span></label><input type="text" id="name" name="name" autocomplete="name" required maxlength="200" /></div>
+    <div class="form-field"><label for="company">{t.labels.company}<span>{t.optional}</span></label><input type="text" id="company" name="company" autocomplete="organization" maxlength="200" /></div>
+    <div class="form-field"><label for="email">{t.labels.email}<span>{t.required}</span></label><input id="email" name="email" type="email" autocomplete="email" required maxlength="254" /></div>
+    <div class="form-field"><label for="message">{t.labels.message}<span>{t.required}</span></label><p id="message-hint" class="field-hint">{t.messageHint}</p><textarea id="message" name="message" rows="6" required aria-describedby="message-hint" maxlength="10000"></textarea></div>
+    {site.contactPrivacyUrl && <p><a href={site.contactPrivacyUrl}>{t.privacy}</a></p>}
+    <button type="submit" class="button" disabled={!enabled}>{enabled ? t.submit : t.disabled}</button>
+  </fieldset>
+</form>

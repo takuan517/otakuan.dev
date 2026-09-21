@@ -1,0 +1,26 @@
+.terminal-wrap { padding-block: 3rem 4rem; }
+.terminal-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.terminal-heading h1 { font-size: 2rem; }
+.terminal-heading a, .terminal-intro { font-size: .9rem; }
+.terminal-intro { margin-top: 1rem; }
+.command-index ul { list-style: none; padding: 0; margin-block: 1.5rem 2rem; display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+.command-index a { display: inline-block; padding-block: .3rem; }
+.terminal { background: #24272b; color: #eeeae2; padding: clamp(1.25rem, 4vw, 3rem); border-radius: .25rem; font-family: var(--font-mono); font-size: .88rem; overflow-wrap: anywhere; }
+.terminal section + section { margin-top: 2.5rem; }
+.terminal h2 { font: inherit; font-weight: 600; line-height: 1.8; letter-spacing: 0; margin-bottom: 1rem; }
+.terminal code, .command-index code { font: inherit; }
+.prompt { color: #b5bdc6; font-weight: 400; }
+.terminal a { color: #c6d9ee; }
+.terminal a:hover { color: white; }
+.terminal :focus-visible { outline-color: #eeeae2; }
+.command-output p + p { margin-top: .5rem; }
+.command-output ul { list-style: none; margin: 0; padding: 0; }
+.command-output li + li { margin-top: 1.25rem; }
+.command-output li p { margin-top: .4rem; }
+.command-output dl { margin: 0; }
+.command-output dl > div + div { margin-top: 1rem; }
+.command-output dt { color: #b5bdc6; }
+.command-output dd { margin: .2rem 0 0; }
+.terminal .terminal-note { color: #b5bdc6; font-size: .8rem; margin-bottom: 1rem; }
+.terminal-exit { margin-top: 2.5rem; }
+@media (max-width: 40rem) { .terminal h2 .prompt { display: block; } }

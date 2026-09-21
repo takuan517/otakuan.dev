@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site, ja, services, technologies } from '../data/site';
+import { shellCommands } from '../data/shell';
+import { getWorks } from '../data/works';
+import '../styles/terminal.css';
+const works = await getWorks();
+---
+<Layout title="Shell" description="Takumi Ishiharaのプロフィール、サービス、技術、実績をシェル形式で閲覧できます。">
+<div class="terminal-wrap shell">
+<div class="terminal-heading"><h1>Shell</h1><a href="/">Back to normal site</a></div>
+<p class="terminal-intro">プロフィールをコマンドの出力形式でまとめています。コマンド入力は不要です。</p>
+<nav class="command-index" aria-label="Shellの内容"><ul>{shellCommands.map(({ id, command }) => <li><a href={`#${id}`}><code>{command}</code></a></li>)}</ul></nav>
+<div class="terminal">
+{shellCommands.map(({ id, command, label }) => <section id={id}>
+<h2><span class="prompt" aria-hidden="true">takumi@otakuan:~$ </span><code>{command}</code><span class="sr-only"> — {label}</span></h2>
+<div class="command-output">
+{id === 'whoami' && <><p>{site.name}</p><p>{site.role}</p></>}
+{id === 'services' && <ul>{services.map((service) => <li><a href={`/services/#${service.id}`}>{service.id}/</a><p>{service.summary}</p></li>)}</ul>}
+{id === 'about' && ja.about.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+{id === 'skills' && <dl>{technologies.map(({ category, items }) => <div><dt>{category}</dt><dd>{items.join(' / ')}</dd></div>)}</dl>}
+{id === 'works' && <>{works.some(({ data }) => data.sample) && <p class="terminal-note">{ja.works.sampleNotice}</p>}<ul>{works.map(({ data }) => <li>{data.url ? <a href={data.url}>{data.title}</a> : <span>{data.title}</span>}<p>{data.description}</p><p>{data.technologies.join(' / ')}</p>{(data.period || data.year) && <p>{data.period ?? data.year}</p>}{data.sample && <p class="terminal-note">{ja.works.sampleLabel}</p>}</li>)}</ul></>}
+{id === 'contact' && <><p>{ja.availability}</p><p>{ja.cta.description}</p><p><a href="/contact/">Contact: /contact</a></p></>}
+</div></section>)}
+<p class="terminal-exit"><span class="prompt" aria-hidden="true">takumi@otakuan:~$ </span><a href="/">exit<span class="sr-only"> — Back to normal site</span></a></p>
+</div></div>
+</Layout>

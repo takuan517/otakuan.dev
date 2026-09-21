@@ -1,0 +1,7 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { ja } from '../data/site';
+interface Props { works: CollectionEntry<'works'>[] }
+const { works } = Astro.props;
+---
+<div class="work-list">{works.map(({ data }) => <article class="work-item"><h3>{data.url ? <a href={data.url}>{data.title}<span aria-hidden="true"> ↗</span></a> : data.title}</h3><p>{data.description}</p><p class="work-technologies">{data.technologies.join(' / ')}</p>{(data.period || data.year) && <p class="work-period">{data.period ?? data.year}</p>}{data.sample && <p class="work-status">{ja.works.sampleLabel}</p>}</article>)}</div>

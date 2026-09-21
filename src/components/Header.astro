@@ -1,0 +1,5 @@
+---
+import Navigation from './Navigation.astro';
+import { site } from '../data/site';
+---
+<header class="site-header shell"><a class="wordmark" href="/" aria-label={`${site.domain} — Home`}>{site.domain}</a><Navigation /></header>

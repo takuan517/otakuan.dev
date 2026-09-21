@@ -1,0 +1,6 @@
+---
+import { services } from '../data/site';
+interface Props { detailed?: boolean }
+const { detailed = false } = Astro.props;
+---
+<div class:list={['service-list', { detailed }]}>{services.map((service) => <article class="service-item" id={service.id}><h3>{detailed ? service.title : <a href={`/services/#${service.id}`}>{service.title}</a>}</h3><p>{service.summary}</p>{detailed && <><p>{service.description}</p><ul class="plain-list">{service.items.map((item) => <li>{item}</li>)}</ul></>}</article>)}</div>

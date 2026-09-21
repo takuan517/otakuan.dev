@@ -1,0 +1,7 @@
+---
+import { ja } from '../data/site';
+const path = Astro.url.pathname;
+---
+<nav aria-label="メインナビゲーション">
+  <ul class="nav-list">{ja.nav.map(({ href, label }) => <li><a class:list={[{ "shell-link": href === "/shell/" }]} href={href} aria-current={(href === '/' ? path === '/' : path.startsWith(href)) ? 'page' : undefined}>{label}</a></li>)}</ul>
+</nav>
