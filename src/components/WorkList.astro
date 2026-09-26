@@ -11,5 +11,4 @@ const { works, showImages = false } = Astro.props;
   {data.technologies.length > 0 && <p class="work-technologies">{data.technologies.join(' / ')}</p>}
   {(data.period || data.year) && <p class="work-period">{data.period ?? data.year}</p>}
   {data.url && <a class="text-link" href={data.url}>{data.linkLabel ?? ja.works.external}<span aria-hidden="true"> ↗</span></a>}
-  {data.sample && <p class="work-status">{ja.works.sampleLabel}</p>}
 </article>)}</div>
