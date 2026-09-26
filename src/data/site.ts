@@ -14,7 +14,6 @@ export const ja = {
   nav: [{ label: 'About', href: '/about/' }, { label: 'Services', href: '/services/' }, { label: 'Works', href: '/works/' }, { label: 'Contact', href: '/contact/' }],
   description: 'Takumi Ishihara — Webアプリケーションの設計・開発からインフラ・ネットワークまで。技術コンサルティング、PoC、システム開発を支援します。',
   hero: { intro: 'Webアプリケーションの設計・開発を中心に、\nバックエンド、インフラ、ネットワークまで扱っています。', description: '技術コンサルティングやPoCのご相談にも対応しています。', works: 'View Works', contact: 'Contact' },
-  availability: 'ご依頼受付中',
   cta: { title: 'Have a project in mind?', description: '業務委託、技術コンサルティング、スポットでの技術支援についてご相談を受け付けています。', note: '継続・スポットいずれも対応可能です。\n要件がまだ固まっていない段階でも構いません。' },
   about: { title: 'About', intro: 'Webアプリケーションを中心に、バックエンド、インフラ、ネットワークまで。領域を横断しながら、目的に合ったシステムを考え、形にします。', paragraphs: ['Webエンジニアとして約7年間、Webサービス、業務システム、Webサイトなどの設計・開発に携わってきました。', 'フロントエンドからバックエンド、データベース、クラウド・インフラまで幅広く経験し、ネットワーク技術を組み合わせたシステム開発や技術コンサルティングにも取り組んでいます。'] },
   services: { title: 'Services', intro: 'つくることも、技術的な判断を支えることも。プロジェクトの段階や課題に合わせて、必要なところから支援します。' },

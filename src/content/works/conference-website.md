@@ -6,7 +6,7 @@ description: 情報セキュリティ国際会議「CODE BLUE」の公式Webサ�
 role: [フロントエンド開発]
 technologies: [Astro]
 year: null
-period: 継続して担当
+period: 2023年~
 url: https://codeblue.jp/
 linkLabel: Webサイトを見る
 image:
