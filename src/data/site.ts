@@ -8,9 +8,9 @@ export const site = {
   contactPrivacyUrl: '',
   profiles: [] as { label: string; url: string }[],
 };
-export const routes = ['/', '/about/', '/services/', '/works/', '/contact/', '/shell/'];
+export const routes = ['/', '/about/', '/services/', '/works/', '/contact/'];
 export const ja = {
-  nav: [{ label: 'About', href: '/about/' }, { label: 'Services', href: '/services/' }, { label: 'Works', href: '/works/' }, { label: 'Contact', href: '/contact/' }, { label: 'Shell', href: '/shell/' }],
+  nav: [{ label: 'About', href: '/about/' }, { label: 'Services', href: '/services/' }, { label: 'Works', href: '/works/' }, { label: 'Contact', href: '/contact/' }],
   description: 'Takumi Ishihara — Webアプリケーションの設計・開発からインフラ・ネットワークまで。技術コンサルティング、PoC、システム開発を支援します。',
   hero: { intro: 'Webアプリケーションの設計・開発を中心に、\nバックエンド、インフラ、ネットワークまで扱っています。', description: '技術コンサルティングやPoCのご相談にも対応しています。', works: 'View Works', contact: 'Contact' },
   availability: 'Available for Projects',

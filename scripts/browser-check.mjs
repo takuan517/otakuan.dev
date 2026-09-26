@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import { chromium } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 const base = process.env.BASE_URL ?? 'http://127.0.0.1:4321';
-const routes = ['/', '/about/', '/services/', '/works/', '/contact/', '/works/code-blue/', '/works/network-training/', '/works/w3c-wcap/', '/404.html', '/shell/'];
+const routes = ['/', '/about/', '/services/', '/works/', '/contact/', '/works/code-blue/', '/works/network-training/', '/works/w3c-wcap/', '/404.html'];
 await fs.mkdir('reports', { recursive: true });
 const browser = await chromium.launch({ headless: true });
 const results = [];
@@ -35,7 +35,7 @@ try {
           assert.ok(focus.visible && focus.outline !== 'none' && focus.width >= 2, `${route}: visible keyboard focus`);
         }
       }
-      if ((width === 390 || width === 1440) && ['/', '/contact/', '/services/', '/shell/'].includes(route)) {
+      if ((width === 390 || width === 1440) && ['/', '/contact/', '/services/'].includes(route)) {
         await page.goto(base + route);
         await page.screenshot({ path: `reports/${route === '/' ? 'home' : route.replaceAll('/', '')}-${width}.png`, fullPage: true });
       }
@@ -60,5 +60,5 @@ try {
   }
   await nojs.close();
   await fs.writeFile('reports/browser.json', JSON.stringify({ results, responsiveWidths: [320, 390, 768, 1440, 1920], keyboard: 'pass', textResize200Percent: 'pass', noJavaScript: 'pass', reducedMotion: 'enabled throughout' }, null, 2));
-  console.log('PASS: 10 pages × 5 widths, axe on mobile + desktop, keyboard focus + skip links, JavaScript disabled navigation.');
+  console.log('PASS: 9 pages × 5 widths, axe on mobile + desktop, keyboard focus + skip links, JavaScript disabled navigation.');
 } finally { await browser.close(); }

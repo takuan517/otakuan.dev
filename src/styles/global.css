@@ -42,9 +42,11 @@ button, input, textarea { font: inherit; }
 .wordmark { font-size: 1rem; color: var(--color-text); font-weight: 600; text-decoration: none; }
 .nav-list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
 .nav-list a { display: block; padding-block: .4rem; font-size: .875rem; text-decoration: none; color: var(--color-text); }
-.nav-list a.shell-link { color: var(--color-muted); }
 .nav-list a[aria-current='page'], .nav-list a:hover { text-decoration: underline; text-underline-offset: .4rem; }
 .hero { padding-block: clamp(3rem, 6vw, 5rem) 2rem; }
+.hero-identity { display: flex; align-items: center; gap: clamp(1rem, 3vw, 1.75rem); }
+.hero-identity > div { min-width: 0; }
+.hero-avatar { display: block; flex: 0 0 auto; width: clamp(4.5rem, 10vw, 7rem); height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 1px solid var(--color-border); background: white; }
 .profile-name { font-size: 1.3rem; }
 .role { margin-top: .15rem; }
 .hero h1 { font-size: clamp(1.75rem, 3vw, 2.25rem); line-height: 1.4; margin: 0; letter-spacing: -.025em; overflow-wrap: anywhere; }

@@ -2,7 +2,10 @@
 import { ja, site } from '../data/site';
 ---
 <section class="hero shell" aria-labelledby="hero-title">
-  <h1 id="hero-title">{site.name}</h1><p class="role">{site.role}</p>
+  <div class="hero-identity">
+    <img class="hero-avatar" src="/avatar.png" alt="" width="512" height="512" fetchpriority="high" />
+    <div><h1 id="hero-title">{site.name}</h1><p class="role">{site.role}</p></div>
+  </div>
   <div class="reading"><p class="preserve-lines">{ja.hero.intro}</p><p>{ja.hero.description}</p></div>
   <div class="actions"><a class="button" href="/works/">{ja.hero.works}</a><a class="text-link" href="/contact/">{ja.hero.contact}</a></div>
   <p class="availability">{ja.availability}</p>
