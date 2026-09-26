@@ -4,7 +4,9 @@ const failure = (status, message) => new Response(`<!doctype html><html lang="ja
 export async function onRequest({ request, env }) {
   if (request.method !== 'POST') return new Response('Method not allowed', { status: 405, headers: { Allow: 'POST' } });
   if (!env.RESEND_API_KEY || !env.TURNSTILE_SECRET_KEY || !env.CONTACT_FROM || !env.CONTACT_ORIGIN) return failure(503, '現在フォームを利用できません。');
-  if (request.headers.get('Origin') !== env.CONTACT_ORIGIN || new URL(request.url).origin !== env.CONTACT_ORIGIN) return failure(403, '送信元を確認できませんでした。');
+  const configuredOrigin = env.CONTACT_ORIGIN.replace(/\/$/, '');
+  const allowedOrigins = new Set([configuredOrigin, configuredOrigin.replace('://', '://www.')]);
+  if (!allowedOrigins.has(request.headers.get('Origin')) || !allowedOrigins.has(new URL(request.url).origin)) return failure(403, '送信元を確認できませんでした。');
   if (!request.headers.get('Content-Type')?.startsWith('application/x-www-form-urlencoded')) return failure(415, '送信形式を確認してください。');
   try {
     // Limit streamed bytes, including requests without Content-Length.
@@ -30,7 +32,8 @@ export async function onRequest({ request, env }) {
     });
     if (!verification.ok) return failure(503, '認証サービスに接続できませんでした。');
     const result = await verification.json();
-    if (!result.success || result.hostname !== new URL(env.CONTACT_ORIGIN).hostname || result.action !== 'contact') return failure(400, '認証が期限切れか、確認できませんでした。再度認証してください。');
+    const allowedHosts = new Set([...allowedOrigins].map((origin) => new URL(origin).hostname));
+    if (!result.success || !allowedHosts.has(result.hostname) || result.action !== 'contact') return failure(400, '認証が期限切れか、確認できませんでした。再度認証してください。');
     const sent = await fetch('https://api.resend.com/emails', {
       method: 'POST', headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ from: env.CONTACT_FROM, to: ['contact@otakuan.dev'], reply_to: email, subject: 'otakuan.devからのお問い合わせ', text: `お名前: ${name}\n会社名: ${company || '未入力'}\nメール: ${email}\n\n${message}` }), signal: AbortSignal.timeout(10000),
