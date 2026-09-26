@@ -1,5 +1,5 @@
 ---
-title: W3C Japan / WCAP Web Development
+title: 団体向けWebサイト・ITインフラ支援
 client: null
 industry: Web / Infrastructure
 description: Webサイトの開発・改善および関連するITインフラ支援。
@@ -9,9 +9,9 @@ year: null
 url: null
 featured: true
 confidential: false
-anonymized: false
+anonymized: true
 sample: true
-published: true
+published: false
 order: 3
 ---
 ## Overview

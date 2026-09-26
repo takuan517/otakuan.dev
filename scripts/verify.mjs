@@ -4,7 +4,7 @@ import path from 'node:path';
 import { HtmlValidate } from 'html-validate';
 const validator = new HtmlValidate({ extends: ['html-validate:recommended'], rules: { 'void-style': 'off', 'no-trailing-whitespace': 'off', 'long-title': 'off', 'no-inline-style': 'off' } });
 const files = (await fs.readdir('dist', { recursive: true })).filter((name) => name.endsWith('.html'));
-assert.ok(files.length >= 9, 'All expected pages generated');
+assert.ok(files.length >= 8, 'All expected pages generated');
 for (const file of files) {
   const html = await fs.readFile(path.join('dist', file), 'utf8');
   const result = await validator.validateString(html, file);
@@ -12,7 +12,7 @@ for (const file of files) {
   assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length, 1, `${file}: one h1`);
   assert.ok(html.includes('lang="ja"'), `${file}: Japanese language`);
   assert.ok(html.includes('href="#main"'), `${file}: skip link`);
-  assert.ok(!/<script(?:\s|>)/.test(html), `${file}: no client JavaScript`);
+  if (file !== 'contact/index.html') assert.ok(!/<script(?:\s|>)/.test(html), `${file}: no client JavaScript`);
   const headings = [...html.matchAll(/<h([1-6])(?:\s|>)/g)].map((m) => Number(m[1]));
   headings.forEach((level, i) => assert.ok(i === 0 || level <= headings[i - 1] + 1, `${file}: heading hierarchy`));
   for (const [, href] of html.matchAll(/href="(\/[^"#?]*)(?:#[^"]*)?"/g)) {
@@ -21,6 +21,10 @@ for (const file of files) {
   }
 }
 const contact = await fs.readFile('dist/contact/index.html', 'utf8');
-assert.match(contact, /<fieldset disabled/);
+if (process.env.PUBLIC_CONTACT_ENABLED === 'true' && process.env.PUBLIC_TURNSTILE_SITE_KEY) {
+  assert.match(contact, /action="\/api\/contact"/);
+  assert.ok(!contact.includes('<fieldset disabled'));
+  assert.ok(contact.includes('challenges.cloudflare.com/turnstile/v0/api.js'));
+} else assert.match(contact, /<fieldset disabled/);
 assert.ok(!contact.includes('action="https://'), 'No inferred form destination');
-console.log(`PASS: ${files.length} pages — valid HTML, headings, internal links, metadata language, no client scripts, unconfigured form safely disabled.`);
+console.log(`PASS: ${files.length} pages — valid HTML, headings, internal links, metadata language, static page scripts and contact configuration checked.`);

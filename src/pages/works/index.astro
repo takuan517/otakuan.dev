@@ -7,4 +7,4 @@ import { ja } from '../../data/site';
 import { getWorks } from '../../data/works';
 const works = await getWorks();
 ---
-<Layout title="Works"><PageIntro label="Works" title={ja.works.title} description={ja.works.intro} /><section class="shell works-section"><h2 class="sr-only">Projects</h2>{works.some(({ data }) => data.sample) && <p class="notice">{ja.works.sampleNotice}</p>}<WorkList works={works} /></section><ContactCTA /></Layout>
+<Layout title="Works"><PageIntro label="Works" title={ja.works.title} description={ja.works.intro} /><section class="shell works-section"><h2 class="sr-only">Projects</h2>{works.some(({ data }) => data.sample) && <p class="notice">{ja.works.sampleNotice}</p>}<WorkList works={works} showImages /></section><ContactCTA /></Layout>

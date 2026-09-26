@@ -5,6 +5,8 @@ const works = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/works' }),
   schema: z.object({
     title: z.string(), client: z.string().nullable(), industry: z.string(),
+    image: z.object({ src: z.string(), alt: z.string(), width: z.number(), height: z.number() }).optional(),
+    linkLabel: z.string().optional(),
     description: z.string(), role: z.array(z.string()), technologies: z.array(z.string()),
     year: z.number().int().nullable(), period: z.string().optional(), url: z.url().nullable(),
     featured: z.boolean().default(false), confidential: z.boolean().default(false),

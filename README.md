@@ -41,11 +41,7 @@ npm run preview
 
 ## 問い合わせ
 
-`src/data/site.ts` の `site.contactEndpoint` に確認済みのHTTPS外部フォーム送信先を設定します。必要に応じて `ContactForm.astro` のフィールド名をプロバイダーに合わせて変更してください。送信先が空の場合は入力と送信を無効にし、未設定であることを画面と支援技術の両方へ伝えます。成功を装う挙動はありません。
-
-接続後はサービス側の送信成功・エラー表示、スパム対策、個人情報の取扱いを確認し、`site.contactPrivacyUrl` を設定してください。必須項目とメール形式はネイティブHTMLバリデーションを使用しています。独自バックエンド・クライアントJavaScriptはありません。
-
-`site.profiles` に確認済み外部プロフィールを追加できます。メールアドレスやGitHub URLは推測して設定していません。
+Cloudflare Pages Functions・Turnstile・Resendで受け付け、Google Workspaceの `contact@otakuan.dev` に通知します。設定手順は [CLOUDFLARE.md](CLOUDFLARE.md) と `.env.example` を参照してください。設定前はフォームを無効にし、メールリンクを表示します。Contactの認証ウィジェットのみJavaScriptを利用します。
 
 ## 品質方針
 
