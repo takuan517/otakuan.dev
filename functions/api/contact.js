@@ -39,3 +39,5 @@ export async function onRequest({ request, env }) {
     return new Response(null, { status: 303, headers: { Location: '/contact/thanks/', 'Cache-Control': 'no-store' } });
   } catch { return failure(503, '通信に失敗しました。'); }
 }
+
+export default { fetch: (request, env) => onRequest({ request, env }) };

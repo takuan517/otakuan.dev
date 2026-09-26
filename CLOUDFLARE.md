@@ -10,19 +10,19 @@
 4. レコード照合後、SquarespaceでCloudflare指定のネームサーバーへ変更します。ドメインの移管は不要です。
 5. Google Workspaceの送受信を確認します。
 
-## Cloudflare Pages
+## Cloudflare Worker
 
-Gitリポジトリを接続し、build commandを `npm run build`、output directoryを `dist`、Nodeを24に設定します。`functions/api/contact.js` はPages Functionsとしてデプロイします。distだけのドラッグ＆ドロップではFunctionsを配置できません。
+Gitリポジトリを接続し、build commandを `npm run build`、deploy commandを `npx wrangler deploy`、Nodeを24に設定します。`wrangler.jsonc` が `dist` を静的アセットとして公開し、`worker.js` が `/api/contact` を処理します。
 
-最初はフォーム無効のままプレビューします。PagesのCustom domainsからotakuan.devを追加します。PagesのルートドメインにはCloudflare DNSが必要です。
+最初はフォーム無効のままプレビューします。WorkerのCustom Domainsからotakuan.devを追加します。
 
 ## メール送信と認証
 
 - Resendで `notify.otakuan.dev` など専用サブドメインを検証し、指定されたDNSを追加します。Google WorkspaceのルートドメインのMX・SPFを上書きしないでください。
 - Resendで送信専用APIキーを作成します。
 - Cloudflare Turnstileで本番ホスト名 `otakuan.dev` のManagedウィジェットを作成します。
-- Pages Functionsの秘密設定に `RESEND_API_KEY` と `TURNSTILE_SECRET_KEY` を登録します。
-- Functionsの変数に `CONTACT_FROM`（検証済み送信元、例 `Website <form@notify.otakuan.dev>`）と `CONTACT_ORIGIN=https://otakuan.dev` を登録します。
+- WorkerのSettings → Variables and Secretsに `RESEND_API_KEY` と `TURNSTILE_SECRET_KEY` をSecretとして登録します。
+- 同じ画面の変数に `CONTACT_FROM`（検証済み送信元、例 `Website <form@notify.otakuan.dev>`）と `CONTACT_ORIGIN=https://otakuan.dev` を登録します。
 - ビルド変数に `PUBLIC_TURNSTILE_SITE_KEY` と `PUBLIC_CONTACT_ENABLED=true` を設定して再デプロイします。
 - Previewでは本番の秘密設定を使わず、フォームを無効にしてください。
 
