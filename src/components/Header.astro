@@ -1,5 +1,7 @@
 ---
+import SocialLinks from './SocialLinks.astro';
+import ThemeToggle from './ThemeToggle.astro';
 import Navigation from './Navigation.astro';
 import { site } from '../data/site';
 ---
-<header class="site-header shell"><a class="wordmark" href="/" aria-label={`${site.domain} — Home`}>{site.domain}</a><Navigation /></header>
+<header class="site-header shell"><a class="wordmark" href="/" aria-label={`${site.domain} — Home`}>{site.domain}</a><div class="header-controls"><Navigation /><div class="header-tools"><SocialLinks /><ThemeToggle /></div></div></header>

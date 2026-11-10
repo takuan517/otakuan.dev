@@ -13,6 +13,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 <html lang={site.locale}>
   <head>
     <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline data-theme-init>
+      (() => {
+        let preference;
+        try { preference = localStorage.getItem('theme'); } catch {}
+        document.documentElement.dataset.theme = preference === 'dark' || (preference !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+      })();
+    </script>
     <title>{pageTitle}</title><meta name="description" content={description} />
     <link rel="canonical" href={canonical} /><link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
     <meta name="theme-color" content="#e3e7ec" />

@@ -12,7 +12,8 @@ for (const file of files) {
   assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length, 1, `${file}: one h1`);
   assert.ok(html.includes('lang="ja"'), `${file}: Japanese language`);
   assert.ok(html.includes('href="#main"'), `${file}: skip link`);
-  if (file !== 'contact/index.html') assert.ok(!/<script(?:\s|>)/.test(html), `${file}: no client JavaScript`);
+  assert.ok(html.includes('data-theme-init'), `${file}: theme initialization`);
+  assert.ok(html.includes('aria-label="ダークモード"'), `${file}: accessible theme toggle`);
   const headings = [...html.matchAll(/<h([1-6])(?:\s|>)/g)].map((m) => Number(m[1]));
   headings.forEach((level, i) => assert.ok(i === 0 || level <= headings[i - 1] + 1, `${file}: heading hierarchy`));
   for (const [, href] of html.matchAll(/href="(\/[^"#?]*)(?:#[^"]*)?"/g)) {

@@ -7,7 +7,11 @@ export const site = {
   contactEmail: 'contact@otakuan.dev',
   contactEndpoint: '',
   contactPrivacyUrl: '',
-  profiles: [] as { label: string; url: string }[],
+  profiles: [
+    { label: 'GitHub', icon: 'github', url: 'https://github.com/takuan517' },
+    { label: 'X', icon: 'x', url: 'https://x.com/takuan517' },
+    { label: 'LinkedIn', icon: 'linkedin', url: 'https://www.linkedin.com/in/takuan517/' },
+  ] as const,
 };
 export const routes = ['/', '/about/', '/services/', '/works/', '/contact/'];
 export const ja = {
